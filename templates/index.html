@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mini Stock Prices</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div>
+
+  			<h1>Mini Stock Prices</h1>
+  			<h4> Enter a stock ticker. </h4>
+     
+
+    <form id='ticker_info' method='post' action='ticker_plot' >
+      <p>
+    Stock Ticker (example: TSLA): <input type='text' name='stock_name' />
+      </p>
+      <p>
+    Start date (yyymmdd example: 20160101): <input type='text' name='start_date' />
+      </p>
+      <p>
+          What would you like to plot?: <br />
+          <input type='radio' name='plot_data' value='open' /> opening price <br />
+          <input type='radio' name='plot_data' value='high' /> high price of the day <br />
+          <input type='radio' name='plot_data' value='low' /> low price of the day <br />
+          <input type='radio' name='plot_data' value='close' /> closing price <br />
+          <input type='radio' name='plot_data' value='volume' /> trade volume <br />
+        </p>
+      <p>
+    <input type='submit' value='Plot!' />
+      </p>
+    </form>
+		</div>
+	</body>
+</html>
