@@ -79,7 +79,7 @@
             <h1 class="cover-heading">MetroShare</h1>
             <p class="lead">Understanding how commuters use the DC metro and Capital Bikeshare systems together to commute to and from work everyday.</p>
             <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Learn more</a>
+              <a href="#learn" class="btn btn-lg btn-default">Learn more</a>
             </p>
             <p class="lead">
               <a href="https://dandtaylor.github.io/MetroShare/" class="btn btn-lg btn-default">Full Analysis</a>
@@ -99,32 +99,30 @@
     </div>
     <div class="container">
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+      <div class="row"  id="learn">
+        <div class="col-md">
+          <h2>Ride distance for all weekday rides.</h2>
+          <p>The below plot shows the distribution of ride distances during three time slots -- morning rush (red), evening rush (blue), and all other times (green). The proximity of each ride to metro stations was not considered.</p>
+          <p> <img src="../images/ride distance all times.png"  width=75% /> </p>
         </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-md">
+          <h2>Ride distance for rides ending near and far from metro stations during the morning rush.</h2>
+          <p>The below plot shows the distribution of ride distances during the morning rush. The red bars show the portion of trips which ended at bikeshare stands within 0.15 miles of a DC metro station. The blue bars show the portion of rides which terminated at DC metro stations further than 0.15 miles from any metro station.</p>
+          <p> <img src="../images/ride distance morning rush.png"  width=75% /> </p>
         </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-md">
+          <h2>Data Sources</h2>
         </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-md-6">
+          <h2>DC Metro</h2>
+          <p>Stations locations were obtained from the WMATA API </p>
+          <p><a class="btn btn-default" href="https://developer.wmata.com/" role="button">View details &raquo;</a></p>
         </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
+        <div class="col-md-6">
+          <h2>Capital Bikeshare stations</h2>
+          <p>All Capital Bikeshare rides can be down loaded in csv tables for each quarter. For this analysis, all rides between 2014-Q4 and 2016-Q3 were considered. Capital Bikeshare stations information (including locations) is available through the Capital Bikeshare website. </p>
+          <p><a class="btn btn-default" href="https://www.capitalbikeshare.com/system-data" role="button">View details &raquo;</a></p>
+        </div>  
       </div>
     </div>
 
