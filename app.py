@@ -15,6 +15,18 @@ def index():
 def morning_map():
 	return render_template('morning_10_map.html')
 
+@app.route('/evening_map')
+def morning_map():
+	return render_template('evening_10_map.html')
+
+@app.route('/near_map')
+def morning_map():
+	return render_template('metro_nearbikes_map.html')
+
+@app.route('/all_map')
+def morning_map():
+	return render_template('all_stations_map.html')
+
 
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0')
