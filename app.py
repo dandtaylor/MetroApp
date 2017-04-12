@@ -11,9 +11,9 @@ def main():
 def index():
   return render_template('index_cover.html')
 
-#@app.route('/info')
-#def infoPage():
-#	return reder_template('info.html')
+@app.route('/morning_map')
+def morning_map():
+	return render_template('morning_10_map.html')
 
 
 if __name__ == '__main__':
