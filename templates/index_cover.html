@@ -114,21 +114,25 @@
         <div class="col-md">
           <h3>Most popular metro stations during morning rush</h3>
           <a href = "{{ url_for('morning_map') }}" > <img src="../static/images/morning_10_map_image.png"  width=50% /> </a>
+          <p> The above map indicates the locations of metro stations (green flags), the most popular morning rush hour starting stations (red flags), and the most popular morning rush hour ending stations (blue flags). Clicking on the image will load an interactive map.</p>
         </div>
 
         <div class="col-md">
           <h3>Most popular metro stations during evening rush</h3>
           <a href = "{{ url_for('evening_map') }}" > <img src="../static/images/evening_10_map_image.png"  width=50% /> </a>
+          <p> The above map indicates the locations of metro stations (green flags), the most popular evening rush hour starting stations (red flags), and the most popular evening rush hour ending stations (blue flags). Clicking on the image will load an interactive map.</p>
         </div>
 
         <div class="col-md">
           <h3>What stations are considered close?</h3>
           <a href = "{{ url_for('near_map') }}" > <img src="../static/images/metro_nearbikes_map_image.PNG"  width=50% /> </a>
+          <p> This map shows metro stations (red) and those bikeshare stations which were considered near to a metro station (within 0.15 miles). Clicking on the image will load an interactive map that you can explore!</p>
         </div>
 
         <div class="col-md">
           <h3>Complete map</h3>
           <a href = "{{ url_for('all_map') }}" > <img src="../static/images/all_stations_map_image.PNG"  width=50% /> </a>
+          <p> This map shows all stations, both metro and bikeshare that were used in this analysis. Green flags indicate metro stations, red flags indicate bikeshare stations considered near metro stations, and blue flags indicate bikeshare stations considered far from metro stations. For this analysis 0.15 miles was used as the cutoff between near and far. Clicking on the image will load an interactive map that you can explore!</p>
         </div>
 
         <div class="col-md">
