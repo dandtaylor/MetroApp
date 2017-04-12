@@ -16,18 +16,18 @@ def morning_map():
 	return render_template('morning_10_map.html')
 
 @app.route('/evening_map')
-def morning_map():
+def evening_map():
 	return render_template('evening_10_map.html')
 
 @app.route('/near_map')
-def morning_map():
+def near_map():
 	return render_template('metro_nearbikes_map.html')
 
 @app.route('/all_map')
-def morning_map():
+def all_map():
 	return render_template('all_stations_map.html')
 
 
 if __name__ == '__main__':
-  app.run(debug=True, host='0.0.0.0')
-  #app.run(port=33507)
+  #app.run(debug=True, host='0.0.0.0')
+  app.run(port=33507)
