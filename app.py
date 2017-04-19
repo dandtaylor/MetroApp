@@ -37,9 +37,9 @@ def main():
 
 @app.route('/index')
 def index():
-  script1, div1 = histogram_figure_all()
+  #script1, div1 = histogram_figure_all()
   script2, div2 = histogram_figure()
-  return render_template('index_cover.html', plot_script1=script1, plot_div1=div1, 
+  return render_template('index_cover.html', #plot_script1=script1, plot_div1=div1, 
   						plot_script2=script2, plot_div2=div2)
 
 @app.route('/morning_map')
