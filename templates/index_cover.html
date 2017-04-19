@@ -29,6 +29,16 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link
+        href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.css"
+        rel="stylesheet" type="text/css">
+    <link
+        href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.4.min.css"
+        rel="stylesheet" type="text/css">
+
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.js"></script>
+    {{plot_script1|safe}}
+    {{plot_script2|safe}}
   </head>
 
   <body>
@@ -97,6 +107,7 @@
       </div>
 
     </div>
+                
     <div class="container">
       <!-- Example row of columns -->
       <div class="row"  id="learn">
@@ -108,11 +119,22 @@
 
           <p>The below plot shows the distribution of ride distances during three time slots -- morning rush (red), evening rush (blue), and all other times (green). The proximity of each ride to metro stations was not considered.</p>
           <p> <img src="../static/images/ride distance all times.png"  width=75% /> </p>
+            <div class='bokeh'>
+              <center>{{plot_div1|safe}}</center>
+            </div>
+
+
+            
+
         </div>
         <div class="col-md">
           <h3>Ride distance for rides ending near and far from metro stations during the morning rush.</h3>
           <p>The below plot shows the distribution of ride distances during the morning rush. The red bars show the portion of trips which ended at bikeshare stands within 0.15 miles of a DC metro station. The blue bars show the portion of rides which terminated at DC metro stations further than 0.15 miles from any metro station.</p>
-          <p> <img src="../static/images/ride distance morning rush.png"  width=75% /> </p>
+          <!--<p> <img src="../static/images/ride distance morning rush.png"  width=75% /> </p>-->
+            <div class='bokeh'>
+              <center>{{plot_div2|safe}}</center>
+            </div>
+
         </div>
 
         <div class="col-md">
