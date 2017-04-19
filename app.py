@@ -15,7 +15,7 @@ def histogram_figure_all():
 	TOOLS = 'box_zoom,crosshair,resize,reset'
 	hist = Histogram(df[df['Ride dist'] < 6], values='Ride dist', #color='End dist', 
 						toolbar_location='above', responsive=True, 
-						bins = 40, density=True, legend='top_right', tools=TOOLS, plot_width=700, plot_height=400)
+						bins = 40, density=True, legend='top_right', tools=TOOLS, plot_width=1000, plot_height=400)
 	script, div  = components(hist)
 	return script, div
 
@@ -25,7 +25,7 @@ def histogram_figure():
 	TOOLS = 'box_zoom,crosshair,resize,reset'
 	hist = Histogram(df[df['Ride dist'] < 6], values='Ride dist', color='End dist', 
 						toolbar_location='above', responsive=True, 
-						bins = 40, density=True, legend='top_right', tools=TOOLS, plot_width=700, plot_height=400)
+						bins = 40, density=True, legend='top_right', tools=TOOLS, plot_width=1000, plot_height=400)
 	script, div  = components(hist)
 	return script, div
 
@@ -37,9 +37,9 @@ def main():
 
 @app.route('/index')
 def index():
-  #script1, div1 = histogram_figure_all()
+  script1, div1 = histogram_figure_all()
   script2, div2 = histogram_figure()
-  return render_template('index_cover.html', #plot_script1=script1, plot_div1=div1, 
+  return render_template('index_cover.html', plot_script1=script1, plot_div1=div1, 
   						plot_script2=script2, plot_div2=div2)
 
 @app.route('/morning_map')
