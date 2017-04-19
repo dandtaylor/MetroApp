@@ -136,15 +136,17 @@
         <div class="col-md">
           <h3>What stations are considered close?</h3>
 
-          <p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('near_map') }}" frameborder="0"></iframe></p>
+          <a href = "{{ url_for('near_map') }}" > <img src="../static/images/all_stations_map_image.PNG"  width=50% /> </a>
+
+          <!--<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('near_map') }}" frameborder="0"></iframe></p>-->
 
           <p> This map shows metro stations (red) and those bikeshare stations which were considered near to a metro station (within 0.15 miles). Clicking on the image will load an interactive map that you can explore!</p>
         </div>
 
         <div class="col-md">
           <h3>Complete map</h3>
-          <!--<a href = "{{ url_for('all_map') }}" > <img src="../static/images/all_stations_map_image.PNG"  width=50% /> </a>-->
-          <p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('all_map') }}" frameborder="0"></iframe></p>
+          <a href = "{{ url_for('all_map') }}" > <img src="../static/images/all_stations_map_image.PNG"  width=50% /> </a>
+          <!--<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('all_map') }}" frameborder="0"></iframe></p>-->
           <p> This map shows all stations, both metro and bikeshare that were used in this analysis. Green flags indicate metro stations, red flags indicate bikeshare stations considered near metro stations, and blue flags indicate bikeshare stations considered far from metro stations. For this analysis 0.15 miles was used as the cutoff between near and far. Clicking on the image will load an interactive map that you can explore!</p>
         </div>
 
