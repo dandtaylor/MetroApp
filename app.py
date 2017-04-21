@@ -125,5 +125,5 @@ def interact3():
 	pass
 
 if __name__ == '__main__':
-  app.run(debug=True, host='0.0.0.0')
-  #app.run(port=33507)
+  #app.run(debug=True, host='0.0.0.0')
+  app.run(port=33507)
