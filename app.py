@@ -10,9 +10,7 @@ from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
 from bokeh.models.widgets import CheckboxButtonGroup, RadioButtonGroup, Select
 from bokeh.models import CustomJS, Legend, ColumnDataSource, HoverTool, Range1d
-from bokeh.models.widgets.layouts import HBox
-
-# comment
+from bokeh.models.layouts import HBox
 
 
 app = Flask(__name__)
@@ -90,8 +88,9 @@ def interacting():
 
 	codex = """
            var data = source.get('data');
-           data['x'] = data[cb_obj.get('value')];
-           source.trigger('change');"""
+           data['y'] = data[cb_obj.get('value')];
+           source.trigger('change');
+           """
 
 	callbackx = CustomJS(args=dict(source=source), code=codex)
 
@@ -99,31 +98,31 @@ def interacting():
 
 	fig.line(x="x", y="y", line_width=4, line_color="#F46D43", line_alpha=0.6, source=source)
 
-	DEFAULT_X = ['Distance', 'Duration']
+	DEFAULT_X = ['distance', 'duration']
 
-	xaxis_select = Select(title="Y axis:", value="Distance",
+	xaxis_select = Select(title="Y axis:", value="distance",
                          options=DEFAULT_X, callback=callbackx)
 
-	
-	
-	#line_dist = fig.line( x='Hour' , y='Ride dist' , source=source , line_width=1  , line_dash='solid' , legend='Ride dist' , line_alpha=0.8 )
-	#line_dura = fig.line( x='Hour' , y='Duration (ms)' , source=source , line_width=1 , line_dash='solid' , legend='Ride duration' , line_alpha=0.8 )
-	
-	#fig.legend.location = 'top_left'
 
 
 	layout = HBox(xaxis_select, fig, width=800)
 
 	script, div = components( layout )
 
-	return render_template( 'interact.html' , #plot_label=app.ticker_symbol ,
+	return render_template( 'interact.html' ,
     	js_resources=INLINE.render_js() ,
     	css_resources=INLINE.render_css() ,
     	plot_script=script ,
     	plot_div=div )
-    	#checkbox_div=div['checkbox_div'] )
-    	#radiobox_div=div['radiobox_div'] )
 
+
+@app.route('/interact2')
+def interacting2():
+	pass
+
+@app.route('/interact3')
+def interact3():
+	pass
 
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0')
