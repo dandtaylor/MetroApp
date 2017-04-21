@@ -147,10 +147,20 @@
         </div>
 
         <div class="col-md">
-          <h3>Most popular metro stations during evening rush</h3>
-          <!--<a href = "{{ url_for('evening_map') }}" > <img src="../static/images/evening_10_map_image.png"  width=50% /> </a>-->
+          <h3>Heatmap of 100 most popular destinations during morning rush</h3>
+          <!---<a href = "{{ url_for('morning_map') }}" > <img src="../static/images/morning_10_map_image.png"  width=50% /> </a>-->
+          
+          <p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('heatmap') }}" frameborder="0"></iframe></p>
 
-          <p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('evening_map') }}" frameborder="0"></iframe></p>
+          <p> The above map indicates the denisty of rides based on their end station.</p>
+        </div>
+
+
+        <div class="col-md">
+          <h3>Most popular metro stations during evening rush</h3>
+          <a href = "{{ url_for('evening_map') }}" > <img src="../static/images/evening_10_map_image.png"  width=50% /> </a>
+
+          <!--<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('evening_map') }}" frameborder="0"></iframe></p>-->
 
           <p> The above map indicates the locations of metro stations (green flags), the most popular evening rush hour starting stations (red flags), and the most popular evening rush hour ending stations (blue flags). Clicking on the image will load an interactive map.</p>
         </div>

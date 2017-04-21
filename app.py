@@ -8,8 +8,9 @@ from bokeh.plotting import figure
 
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
-from bokeh.models.widgets import CheckboxButtonGroup, RadioButtonGroup
+from bokeh.models.widgets import CheckboxButtonGroup, RadioButtonGroup, Select
 from bokeh.models import CustomJS, Legend, ColumnDataSource, HoverTool, Range1d
+from bokeh.models.widgets.layouts import HBox
 
 
 
@@ -40,6 +41,7 @@ def histogram_figure():
 
 
 
+
 @app.route('/')
 def main():
   return redirect('/index')
@@ -54,6 +56,10 @@ def index():
 @app.route('/morning_map')
 def morning_map():
 	return render_template('morning_10_map.html')
+
+@app.route('/heatmap')
+def heatmap():
+	return render_template('heatmap1_endstation.html')
 
 @app.route('/evening_map')
 def evening_map():
@@ -72,42 +78,51 @@ def all_map():
 @app.route('/interact')
 def interacting():
 
-	df = pickle.load(open("static/bike_may2016.p", "r"))
-	source = ColumnDataSource(df)
+	df = pickle.load(open("static/interact_df1.p", "r"))
+	temp = df.reset_index()
 
-	fig = figure( width=800 , height=400 , responsive=True,
-                  x_axis_label='Distance' ,
-                  y_axis_label='Density' )
+	hours = temp["Hour"]
+	distance = temp['Ride dist']
+	duration = temp['Duration (ms)']
 
-	hist_dist = fig.Histogram( df[df['Ride dist'] < 6] , values='Ride dist', legend='distance'  )
-	hist_dura = fig.Histogram( df[df['Ride dist'] < 6] , values='Duration (ms)', legend='duration' )
+	source = ColumnDataSource(
+    data=dict(x=hours, y=distance, distance=distance, duration=duration))
+
+	codex = """
+           var data = source.get('data');
+           data['x'] = data[cb_obj.get('value')];
+           source.trigger('change');"""
+
+	callbackx = CustomJS(args=dict(source=source), code=codex)
+
+	fig = figure( width=800 , height=400 )
+
+	fig.line(x="x", y="y", line_width=4, line_color="#F46D43", line_alpha=0.6, source=source)
+
+	DEFAULT_X = ['Distance', 'Duration']
+
+	xaxis_select = Select(title="Y axis:", value="Distance",
+                         options=DEFAULT_X, callback=callbackx)
+
 	
-	fig.legend.location = 'top_left'
+	
+	#line_dist = fig.line( x='Hour' , y='Ride dist' , source=source , line_width=1  , line_dash='solid' , legend='Ride dist' , line_alpha=0.8 )
+	#line_dura = fig.line( x='Hour' , y='Duration (ms)' , source=source , line_width=1 , line_dash='solid' , legend='Ride duration' , line_alpha=0.8 )
+	
+	#fig.legend.location = 'top_left'
 
-	callback_checkbox = CustomJS( args=dict(hist_dist=hist_dist, hist_dura=hist_dura) , code="""
-      hist_dist.visible = false;
-      hist_dura.visible = false;
-      for (i in cb_obj.active) {
-        if (cb_obj.active[i] == 0) {
-            hist_dist.visible = true;
-        } else if (cb_obj.active[i] == 1) {
-            hist_dura.visible = true;
-        } 
-      }
-    """)
 
-	checkbox = CheckboxButtonGroup( labels=['Distance','Duration'] , active=[0,1] , callback=callback_checkbox )
+	layout = HBox(xaxis_select, fig, width=800)
 
-	script, div = components( {'checkbox_div':checkbox, 'plot_div':fig} )
+	script, div = components( layout )
 
-	return render_template( 'interact.html' , plot_label=app.ticker_symbol ,
+	return render_template( 'interact.html' , #plot_label=app.ticker_symbol ,
     	js_resources=INLINE.render_js() ,
     	css_resources=INLINE.render_css() ,
     	plot_script=script ,
-    	plot_div=div['plot_div'] ,
-    	checkbox_div=div['checkbox_div'] ,
-    	radiobox_div=div['radiobox_div'] )
-
+    	plot_div=div )
+    	#checkbox_div=div['checkbox_div'] )
+    	#radiobox_div=div['radiobox_div'] )
 
 
 if __name__ == '__main__':
