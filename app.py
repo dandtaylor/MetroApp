@@ -188,7 +188,7 @@ def interact3():
         x = data['x']
         y = data['y']
         for (i = 0; i < x.length; i++) {
-            y[i] = Math.pow(x[i], f)
+            y[i] = Math.pow(y[i], f)
         }
         source.trigger('change');
     	""")
