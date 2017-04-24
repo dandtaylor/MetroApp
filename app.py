@@ -8,8 +8,8 @@ from bokeh.plotting import figure
 
 from bokeh.resources import INLINE
 from bokeh.util.string import encode_utf8
-from bokeh.models.widgets import CheckboxButtonGroup, RadioButtonGroup, Select
-from bokeh.models import CustomJS, Legend, ColumnDataSource, HoverTool, Range1d
+from bokeh.models.widgets import CheckboxButtonGroup, RadioButtonGroup, Select, Slider
+from bokeh.models import CustomJS, Legend, ColumnDataSource, HoverTool, Range1d, Toggle, BoxAnnotation
 from bokeh.models.layouts import HBox
 
 
@@ -118,12 +118,112 @@ def interacting():
 
 @app.route('/interact2')
 def interacting2():
-	pass
+	df = pickle.load(open("static/interact_df1.p", "r"))
+	temp = df.reset_index()
+
+	hours = temp["Hour"]
+	distance = temp['Ride dist']
+	duration = temp['Duration (ms)']
+
+	source = ColumnDataSource(
+    data=dict(x=hours, y=distance, distance=distance, duration=duration))
+
+	codex = """
+           var data = source.get('data');
+           data['y'] = data[cb_obj.get('value')];
+           source.trigger('change');
+           """
+
+	callbackx = CustomJS(args=dict(source=source), code=codex)
+
+	fig = figure( width=800 , height=400 )
+
+	fig.vbar(x='x', width=0.5, bottom=0, top='y', line_width=4, line_color="#F46D43", line_alpha=0.8, source=source)
+
+	DEFAULT_X = ['distance', 'duration']
+
+	xaxis_select = Select(title="Y axis:", value="distance",
+                         options=DEFAULT_X, callback=callbackx)
+
+
+
+	layout = HBox(xaxis_select, fig, width=800)
+
+	script, div = components( layout )
+
+	return render_template( 'interact.html' ,
+    	js_resources=INLINE.render_js() ,
+    	css_resources=INLINE.render_css() ,
+    	plot_script=script ,
+    	plot_div=div )
 
 @app.route('/interact3')
 def interact3():
-	pass
+	df = pickle.load(open("static/interact_df1.p", "r"))
+	temp = df.reset_index()
+
+	hours = temp["Hour"]
+	distance = temp['Ride dist']
+	duration = temp['Duration (ms)']
+
+	#x = [x*0.005 for x in range(0, 200)]
+	#y = x
+
+	#source = ColumnDataSource(data=dict(x=x, y=y))
+
+	#plot = figure(plot_width=400, plot_height=400)
+	#plot.line('x', 'y', source=source, line_width=3, line_alpha=0.6)
+
+	
+
+	
+
+
+	source = ColumnDataSource(
+    data=dict(x=hours, y=distance, distance=distance, duration=duration))
+	
+	callback = CustomJS(args=dict(source=source), code="""
+        var data = source.data;
+        var f = cb_obj.value
+        x = data['x']
+        y = data['y']
+        for (i = 0; i < x.length; i++) {
+            y[i] = Math.pow(x[i], f)
+        }
+        source.trigger('change');
+    	""")
+
+	slider = Slider(start=0.1, end=4, value=1, step=.1, title="power", callback=callback)
+
+	#codex = """
+    #       var data = source.get('data');
+    #       data['y'] = data[cb_obj.get('value')];
+    #       source.trigger('change');
+    #       """
+
+	#callbackx = CustomJS(args=dict(source=source), code=codex)
+
+	fig = figure( width=800 , height=400 )
+
+	fig.vbar(x='x', width=0.5, bottom=0, top='y', line_width=4, line_color="#F46D43", line_alpha=0.8, source=source)
+
+	DEFAULT_X = ['distance', 'duration']
+
+	#xaxis_select = Select(title="Y axis:", value="distance",
+    #                     options=DEFAULT_X, callback=callbackx)
+
+
+
+	layout = HBox(slider, fig, width=800)
+
+	script, div = components( layout )
+
+	return render_template( 'interact.html' ,
+    	js_resources=INLINE.render_js() ,
+    	css_resources=INLINE.render_css() ,
+    	plot_script=script ,
+    	plot_div=div )
 
 if __name__ == '__main__':
-  #app.run(debug=True, host='0.0.0.0')
-  app.run(port=33507)
+  app.run(debug=True, host='0.0.0.0')
+  #app.run(port=33507)
