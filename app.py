@@ -20,8 +20,9 @@ app = Flask(__name__)
 def histogram_figure_all():
 	df = pickle.load(open("static/bike_may2016.p", "r"))
 	TOOLS = 'box_zoom,crosshair,resize,reset'
-	hist = Histogram(df[df['Ride dist'] < 6], values='Ride dist', #color='End dist', 
-						toolbar_location='above', responsive=True, 
+	df.rename(columns={'Ride dist':'Ride diststance (miles)'}, inplace=True)
+	hist = Histogram(df[df['Ride diststance (miles)'] < 6], values='Ride diststance (miles)', #color='End dist', 
+						toolbar_location='above', responsive=True,
 						bins = 40, density=True, legend='top_right', tools=TOOLS, plot_width=1000, plot_height=400)
 	script, div  = components(hist)
 	return script, div
@@ -31,8 +32,9 @@ def histogram_figure():
 	df = pickle.load(open("static/bike_may2016.p", "r"))
 	TOOLS = 'box_zoom,crosshair,resize,reset'
 	temp = df[df['Ride dist'] < 6]
-	hist = Histogram(temp[(temp['Hour'] >= 6) & (temp['Hour'] <= 9)], values='Ride dist', color='End dist', 
-						toolbar_location='above', responsive=True, 
+	temp.rename(columns={'Ride dist':'Ride diststance (miles)'}, inplace=True)
+	hist = Histogram(temp[(temp['Hour'] >= 6) & (temp['Hour'] <= 9)], values='Ride diststance (miles)', color='End dist', 
+						toolbar_location='above', responsive=True,
 						bins = 40, density=True, legend='top_right', tools=TOOLS, plot_width=1000, plot_height=400)
 	script, div  = components(hist)
 	return script, div
