@@ -21,7 +21,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import ShuffleSplit, GridSearchCV
 from sklearn.externals import joblib
 
-from LatLongTransformer import LatLongTransformer
+#from LatLongTransformer import LatLongTransformer
 
 
 
