@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Mini Stock Prices</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div>
+
+  			<h1>BikeShare Predicting</h1>
+  			<h4> Enter an address </h4>
+     
+
+    <form id='ticker_info' method='post' action='predict_result' >
+      <p>
+    Enter an address: <input type='text' name='address' />
+      </p>
+      <!--<p>
+          What would you like to plot?: <br />
+          <input type='radio' name='plot_data' value='open' /> opening price <br />
+          <input type='radio' name='plot_data' value='high' /> high price of the day <br />
+          <input type='radio' name='plot_data' value='low' /> low price of the day <br />
+          <input type='radio' name='plot_data' value='close' /> closing price <br />
+          <input type='radio' name='plot_data' value='volume' /> trade volume <br />
+        </p>-->
+      <p>
+    <input type='submit' value='Plot!' />
+      </p>
+    </form>
+		</div>
+	</body>
+</html>

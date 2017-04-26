@@ -66,7 +66,7 @@
                           <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav masthead-nav">
                                     <li class="active"><a href="#">Home</a></li>
-                                    <li><a href="/interact">Check it out!</a></li>
+                                    <li><a href="{{ url_for('predict_prompt') }}">Check it out!</a></li>
                                     <li><a href="https://github.com/dandtaylor/MetroShare">My GitHub</a></li>
                                   </ul>
 
@@ -185,15 +185,20 @@
         <div class="col-md">
           <h3>Data Sources</h3>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h3>DC Metro</h3>
           <p>Stations locations were obtained from the WMATA API </p>
           <p><a class="btn btn-default" href="https://developer.wmata.com/" role="button">View details &raquo;</a></p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h3>Capital Bikeshare stations</h3>
           <p>All Capital Bikeshare rides can be down loaded in csv tables for each quarter. For this analysis, all rides between 2014-Q4 and 2016-Q3 were considered. Capital Bikeshare stations information (including locations) is available through the Capital Bikeshare website. </p>
           <p><a class="btn btn-default" href="https://www.capitalbikeshare.com/system-data" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h3>US Census data</h3>
+          <p>Data from the 2010 US census was used to determine the population and housing unit densities for each location. </p>
+          <p><a class="btn btn-default" href="https://www.census.gov/geo/maps-data/data/gazetteer2010.html" role="button">View details &raquo;</a></p>
         </div>  
       </div>
     </div>
