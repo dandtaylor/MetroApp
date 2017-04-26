@@ -110,9 +110,12 @@ class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
         return features_all
 
 
-##########################
+########################## import pre-trained estimator
 
-randomforestpipe = joblib.load( 'static/rfr_pipe_new.joblib.pkl' )
+#randomforestpipe = joblib.load( 'static/rfr_pipe_new.joblib.pkl' )
+randomforestpipe =  pickle.load(open("static/rfr_pipe.p", "r"))
+
+##########################
 
 
 @app.route('/')
