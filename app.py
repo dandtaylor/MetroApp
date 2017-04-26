@@ -21,6 +21,8 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import ShuffleSplit, GridSearchCV
 from sklearn.externals import joblib
 
+from LatLongTransformer import LatLongTransformer
+
 
 
 
@@ -113,7 +115,7 @@ class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
 ########################## import pre-trained estimator
 
 #randomforestpipe = joblib.load( 'static/rfr_pipe_new.joblib.pkl' )
-#randomforestpipe =  pickle.load(open("static/rfr_pipe.p", "r"))
+randomforestpipe =  pickle.load(open("static/rfr_pipe.p", "r"))
 
 ##########################
 
