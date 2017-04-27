@@ -16,18 +16,16 @@
 
     <form id='ticker_info' method='post' action='predict_result' >
       <p>
-    Enter an address: <input type='text' name='address' />
+    Enter an address: <input type='text' name='address' size="70" />
       </p>
-      <!--<p>
-          What would you like to plot?: <br />
-          <input type='radio' name='plot_data' value='open' /> opening price <br />
-          <input type='radio' name='plot_data' value='high' /> high price of the day <br />
-          <input type='radio' name='plot_data' value='low' /> low price of the day <br />
-          <input type='radio' name='plot_data' value='close' /> closing price <br />
-          <input type='radio' name='plot_data' value='volume' /> trade volume <br />
-        </p>-->
       <p>
-    <input type='submit' value='Plot!' />
+          Select the format of you entry: <br />
+          <input type='radio' name='input_format' value='LatLong' /> Latitude/Longitude (e.g. 38.89696, -77.00493) <br />
+          <input type='radio' name='input_format' value='Address' /> Address (e.g. 1601 Connecticut Ave NW, Washington, DC 20009) <br />
+        </p>
+      <p>
+      Sorry, this isn't ready for heroku!
+    <!--<input type='submit' value='Predict!' />-->
       </p>
     </form>
 		</div>

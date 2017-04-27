@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 import heapq
 from geopy.distance import vincenty
+from geopy.geocoders import Nominatim
 
 from bokeh.charts import Histogram, Bar
 from bokeh.embed import components
@@ -104,8 +105,8 @@ class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
         
         for ii in X:
             features = []
-            features.extend(self.n_closest_metro_distance(ii, 2)) # metro 2
-            features.extend(self.n_closest_bike_distance(ii, 8)) # 1st nearest bike stand
+            features.extend(self.n_closest_metro_distance(ii, 2)) # n nearest metro stations
+            features.extend(self.n_closest_bike_distance(ii, 8)) # n nearest bike stands
             features.extend(self.closest_census_tract(ii[0], ii[1])) # population and housing density
             features_all.append(features)
         
@@ -115,7 +116,7 @@ class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
 ########################## import pre-trained estimator
 
 #randomforestpipe = joblib.load( 'static/rfr_pipe_new.joblib.pkl' )
-randomforestpipe =  pickle.load(open("static/rfr_pipe.p", "r"))
+#randomforestpipe =  pickle.load(open("static/rfr_pipe.p", "r"))
 
 ##########################
 
@@ -138,9 +139,22 @@ def predict_prompt():
 @app.route('/predict_result', methods=['POST'])
 def predict_result():
 	app.vars['address'] = request.form['address']
-	lat, lon = [float(x.strip()) for x in app.vars['address'].split(',')]
-	prediction = randomforestpipe.predict([[lat, lon]])
-	return render_template('predict_output.html', address = app.vars['address'], prediction = prediction)
+	app.vars['format'] = request.form['input_format']
+	if app.vars['format'] == 'Address':
+		geolocator = Nominatim()
+		location = geolocator.geocode(app.vars['address'])
+		lat, lon, address = location.latitude, location.longitude, location.address
+
+	if app.vars['format'] == 'LatLong':
+		lat, lon = [float(x.strip()) for x in app.vars['address'].split(',')]
+		geolocator = Nominatim()
+		location = geolocator.geocode(app.vars['address'])
+		address = location.address
+	
+	prediction = int(randomforestpipe.predict([[lat, lon]]))
+
+	return render_template('predict_output.html', address = address, prediction = prediction, 
+		lat = lat, lon = lon)
 
 @app.route('/morning_map')
 def morning_map():
@@ -290,5 +304,5 @@ def interact3():
     	plot_div=div )
 
 if __name__ == '__main__':
-  app.run(debug=True, host='0.0.0.0')
-  #app.run(port=33507)
+  #app.run(debug=True, host='0.0.0.0')
+  app.run(port=33507)
