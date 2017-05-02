@@ -134,7 +134,7 @@ def histogram_figure():
 ##########################
 
 #randomforestpipe = joblib.load( 'static/rfr_pipe_new.joblib.pkl' )
-randomforestpipe =  pickle.load(open("static/RandomForestPipe_20170430.p", "r"))
+#randomforestpipe =  pickle.load(open("static/RandomForestPipe_20170430.p", "r"))
 
 ##########################
 
@@ -169,13 +169,13 @@ def predict_result():
 	app.vars['format'] = request.form['input_format']
 	app.vars['map_wanted'] = request.form['map_wanted']
 	if app.vars['format'] == 'Address':
-		geolocator = GoogleV3()
+		geolocator = GoogleV3(timeout=2)
 		location = geolocator.geocode(app.vars['address'])
 		lat, lon, address = location.latitude, location.longitude, location.address
 
 	if app.vars['format'] == 'LatLong':
 		lat, lon = [float(x.strip()) for x in app.vars['address'].split(',')]
-		geolocator = GoogleV3()
+		geolocator = GoogleV3(timeout=2)
 		location = geolocator.geocode(app.vars['address'])
 		address = location.address
 	
@@ -183,7 +183,7 @@ def predict_result():
 
 	if app.vars['map_wanted'] == 'yes':
 		map_object = folium.Map(location=[lat, lon], zoom_start=14, tiles="Stamen toner")
-		folium.Marker((lat, lon), popup= (address + 'test'), icon=folium.Icon(color='green')).add_to(map_object)
+		folium.Marker((lat, lon), popup= (address), icon=folium.Icon(color='green')).add_to(map_object)
 		for k, v in bike_loc.items():
 			folium.Marker(v, popup= k, icon=folium.Icon(color='blue')).add_to(map_object)
 		folium.Map.save(map_object, "templates/test_map_output.html")
@@ -344,5 +344,5 @@ def interact3():
     	plot_div=div )
 
 if __name__ == '__main__':
-  app.run(debug=True, host='0.0.0.0')
-  #app.run(port=33507)
+  #app.run(debug=True, host='0.0.0.0')
+  app.run(port=33507)

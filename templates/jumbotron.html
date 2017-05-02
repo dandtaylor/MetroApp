@@ -74,7 +74,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>How does it work?</h1>
-        <p>This model uses information about current bikeshare stations -- their location, popularity, census demographics -- to predict the popularity of new stations.</p>
+        <p>This model uses information about current bikeshare stations -- location, popularity, census demographics -- to predict the popularity of new stations.</p>
         <p><a class="btn btn-primary btn-lg" href="{{ url_for('predict_prompt') }}" role="button">Give it a try! &raquo;</a></p>
       </div>
     </div>
@@ -86,6 +86,11 @@
           <h2>Feature Engineering</h2>
         </div>
         <div class="col-md-4">
+          <h2>Bikeshare Stations</h2>
+          <p>Over 3 million rides from the last year, along with geolocational data, were used to determine the ridership for each of the over 450 active stations. Features engineered from this data set include, bikeshare station density and the individual distances to each of the closest 10 bikeshare stands.</p>
+          <p><a class="btn btn-default" href="https://www.capitalbikeshare.com/system-data" role="button">View data source &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
           <h2>DC Metro</h2>
           <p>My analysis shows that many Capital Bikeshare riders use the system together with the DC metro. Because of this, the distance to the two closest metro stations is determined for each location and used as features in the model. The locational data for the DC metro was taken from the WMATA API.</p>
           <p><a class="btn btn-default" href="https://developer.wmata.com/" role="button">View data source &raquo;</a></p>
@@ -95,17 +100,13 @@
           <p>From the most recent American Community Survey, population, housing, income, employment, and other demographic data  is determined for each location and used as features in the model.</p>
           <p><a class="btn btn-default" href="https://www.census.gov/geo/maps-data/data/gazetteer2010.html" role="button">View data source &raquo;</a></p>
        </div>
-        <div class="col-md-4">
-          <h2>Bikeshare Stations</h2>
-          <p>Over 3 million rides from the last year, along with geolocational data, were used to determine the ridership for each of the over 450 active stations. Features engineered from this data set include, bikeshare station density and the individual distances to each of the closest 10 bikeshare stands.</p>
-          <p><a class="btn btn-default" href="https://www.capitalbikeshare.com/system-data" role="button">View data source &raquo;</a></p>
-        </div>
+        
       </div>
       <div class = "row">
         <div class="col-md">
         <br><br>
         <h2>My Pipeline</h2>
-        <p> From the input address, the pipeline creates the feature set using existing bikeshare information, the location of metro stations, and data from the 2016 American Community Survey. These features are then fed into a random forest regression estimator to determine the predicted demand at that location.</p>
+        <p> From the input address, the pipeline creates the feature set using existing bikeshare information, the location of metro stations, and data from the 2016 American Community Survey. These features are then fed into a random forest regression estimator to determine the predicted ridership at that location.</p>
         <center><img src="../static/images/ml_pipeline.svg"  width=90% /></center>
         </div>
       </div>
