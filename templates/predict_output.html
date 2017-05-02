@@ -3,10 +3,22 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Predicting Bikeshare Demand</title>
+
+		<script src="../static/jquery-3.2.1.min.js"></script>
+
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<link rel="icon" href="../static/favicon.ico">
+
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+  		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+
+  		
+  		<style>
+    		#map{ height: 100% }
+  		</style>
 
 		
 		
@@ -61,7 +73,8 @@
 					  </table>
 					</div>
 
-			  		<button class="btn btn-default" onclick="goBack()">Go Back</button>
+					<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('test_map_output') }}" frameborder="0"></iframe></p>
+					<button class="btn btn-default" onclick="goBack()">Go Back</button>
 					<script>
 					function goBack() {
 			    						window.history.back();

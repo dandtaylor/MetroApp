@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import numpy as np
 import pickle
 import heapq
+import folium
 from geopy.distance import vincenty
 from geopy.geocoders import Nominatim, GoogleV3
 
@@ -152,11 +153,11 @@ def index():
 
 @app.route('/info')
 def info():
-  script1, div1 = histogram_figure_all()
-  script2, div2 = histogram_figure()
-  return render_template('jumbotron.html', plot_script1=script1, plot_div1=div1, 
-  						plot_script2=script2, plot_div2=div2)
-  #return render_template('jumbotron.html')
+  #script1, div1 = histogram_figure_all()
+  #script2, div2 = histogram_figure()
+  #return render_template('jumbotron.html', plot_script1=script1, plot_div1=div1, 
+  						#plot_script2=script2, plot_div2=div2)
+  return render_template('jumbotron.html')
 
 @app.route('/predict_prompt')
 def predict_prompt():
@@ -166,6 +167,7 @@ def predict_prompt():
 def predict_result():
 	app.vars['address'] = request.form['address']
 	app.vars['format'] = request.form['input_format']
+	app.vars['map_wanted'] = request.form['map_wanted']
 	if app.vars['format'] == 'Address':
 		geolocator = GoogleV3()
 		location = geolocator.geocode(app.vars['address'])
@@ -178,6 +180,14 @@ def predict_result():
 		address = location.address
 	
 	prediction = int(randomforestpipe.predict([[lat, lon]]))
+
+	if app.vars['map_wanted'] == 'yes':
+		map_object = folium.Map(location=[lat, lon], zoom_start=14, tiles="Stamen toner")
+		folium.Marker((lat, lon), popup= (address + 'test'), icon=folium.Icon(color='green')).add_to(map_object)
+		for k, v in bike_loc.items():
+			folium.Marker(v, popup= k, icon=folium.Icon(color='blue')).add_to(map_object)
+		folium.Map.save(map_object, "templates/test_map_output.html")
+
 
 	return render_template('predict_output.html', address = address, prediction = prediction, 
 		lat = lat, lon = lon)
@@ -201,6 +211,10 @@ def near_map():
 @app.route('/all_map')
 def all_map():
 	return render_template('all_stations_map.html')
+
+@app.route('/test_map_output')
+def test_map_output():
+	return render_template('test_map_output.html')
 
 
 # Interactive figure

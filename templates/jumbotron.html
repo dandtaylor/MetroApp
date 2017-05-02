@@ -38,8 +38,8 @@
 
     <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.js"></script>
 
-    {{plot_script1|safe}}
-    {{plot_script2|safe}}
+    <!--{{plot_script1|safe}}
+    {{plot_script2|safe}}-->
 
   </head>
 
@@ -130,10 +130,16 @@
         <div class="col-md">
           <h3>Ride distance for all weekday rides.</h3>
           <p>The below plot shows the distribution of ride distances with no consideration for time of day. The proximity of each ride to metro stations was also not considered.</p>
-          <!---<p> <img src="../static/images/ride distance all times.png"  width=75% /> </p>-->
+          <!---<p> <img src="../static/images/ride distance all times.png"  width=75% /> </p>
             <div class='bokeh'>
-              <center>{{plot_div1|safe}}</center>
-            </div>
+              <center>{{plot_div1|safe}}</center>-->
+              <script
+                src="../static/bokeh_morning_new.js"
+                id="77a86180-cd6b-4342-9282-871af569c8a0"
+                data-bokeh-model-id="0167df2c-e9fd-44b8-99fe-15978b44f970"
+                data-bokeh-doc-id="75d12d72-c1a8-402f-8fdd-c6d0be2cbd25"
+              ></script>
+            
         </div>
       </div>
 
@@ -141,10 +147,16 @@
         <div class="col-md">
           <h3>Ride distance for rides ending near and far from metro stations during the morning rush.</h3>
           <p>The below plot shows the distribution of ride distances during the morning rush. The green bars show the portion of trips which ended at bikeshare stands within 0.15 miles of a DC metro station. The red bars show the portion of rides which terminated at DC metro stations further than 0.15 miles from any metro station.</p>
-          <!--<p> <img src="../static/images/ride distance morning rush.png"  width=75% /> </p>-->
+          <!--<p> <img src="../static/images/ride distance morning rush.png"  width=75% /> </p>
             <div class='bokeh'>
-              <center>{{plot_div2|safe}}</center>
-            </div>
+              <center>{{plot_div2|safe}}</center>-->
+              <script
+                src="../static/near_far_new2.js"
+                id="b9f972b2-518c-4fcf-aa02-7a3e512637e9"
+                data-bokeh-model-id="8797faf5-ad9d-432b-9130-c684407033aa"
+                data-bokeh-doc-id="8c5f7688-24d3-42e0-9e7f-eaac145dc6c4"
+              ></script>
+            
         </div>
       </div>
 
