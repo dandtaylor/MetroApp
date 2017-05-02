@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 468 216" enable-background="new 0 0 468 216" xml:space="preserve">
+<path fill="#A4D2E4" d="M277.3,149.6h-89.4c-6.6,0-12-5.4-12-12V58.8c0-6.6,5.4-12,12-12h89.4c6.6,0,12,5.4,12,12v78.7
+	C289.3,144.2,283.9,149.6,277.3,149.6z"/>
+<text transform="matrix(1 0 0 1 189.8879 96.7114)" font-family="'MyriadPro-Regular'" font-size="12">Capital Bikeshare</text>
+<text transform="matrix(1 0 0 1 208.7877 78.3021)" font-family="'MyriadPro-Regular'" font-size="12">DC Metro</text>
+<text transform="matrix(1 0 0 1 206.6635 115.121)" font-family="'MyriadPro-Regular'" font-size="12">US Census</text>
+<text transform="matrix(1 0 0 1 182.5796 35.0002)" font-family="'MyriadPro-Regular'" font-size="12">Feature Transformer</text>
+<path fill="#A4D2E4" d="M443.5,122.8h-89.4c-6.6,0-12-5.4-12-12V81.5c0-6.6,5.4-12,12-12h89.4c6.6,0,12,5.4,12,12v29.2
+	C455.5,117.4,450.1,122.8,443.5,122.8z"/>
+<text transform="matrix(1 0 0 1 373.2039 64.8758)" font-family="'MyriadPro-Regular'" font-size="12">Prediction</text>
+<text transform="matrix(1 0 0 1 360.8251 92.473)"><tspan x="0" y="0" font-family="'MyriadPro-Regular'" font-size="12">Random Forest</tspan><tspan x="13.4" y="14.4" font-family="'MyriadPro-Regular'" font-size="12">Regressor</tspan></text>
+<path fill="#A4D2E4" d="M111.1,123H21.7c-6.6,0-12-5.4-12-12V81.8c0-6.6,5.4-12,12-12h89.4c6.6,0,12,5.4,12,12V111
+	C123.1,117.6,117.7,123,111.1,123z"/>
+<text transform="matrix(1 0 0 1 40.4001 64.8758)" font-family="'MyriadPro-Regular'" font-size="12">User Input</text>
+<text transform="matrix(1 0 0 1 46.3634 99.9052)" font-family="'MyriadPro-Regular'" font-size="12">Address</text>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="128.9" y1="96.2" x2="153.2" y2="96.2"/>
+		<g>
+			<polygon points="167.3,96.2 147.4,104.3 152.1,96.2 147.4,88 			"/>
+		</g>
+	</g>
+</g>
+<g>
+	<g>
+		<line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="294.8" y1="96.2" x2="319.1" y2="96.2"/>
+		<g>
+			<polygon points="333.2,96.2 313.3,104.3 318,96.2 313.3,88 			"/>
+		</g>
+	</g>
+</g>
+</svg>

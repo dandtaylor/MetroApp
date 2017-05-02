@@ -6,25 +6,69 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<link rel="icon" href="../static/favicon.ico">
 
 		
 		
 	</head>
 	<body>
-	
-		<div>
-  			<h1>Predicting Capital Bikeshare Demand for Washington DC</h1>
-  			<h4>This is the address you entered:</h4>
-  			<h4>{{address}} </h4> 
-  			<h4>with these coordinates {{lat}}, {{lon}} </h4>
-  			<h4>and here is the prediction: {{prediction}} rides per day</h4>
-		</div>
 
-  		<button onclick="goBack()">Go Back</button>
-		<script>
-		function goBack() {
-    						window.history.back();
-							}
-		</script>
+		<center>
+
+  			<h1>BikeShare Predicting</h1>
+  			<h4> Enter an address to get the predicted demand</h4>
+      	</center>
+
+		<div class="container">
+        
+        	<div class="row">
+
+          		<div class="col-md-6 col-md-offset-3">
+					<div>
+			  			
+			  			<h4>This is the address you entered:</h4>
+			  			<p class="text-right text-info"><big>{{address}}</big></p>
+			  			<h4>with these coordinates:</h4> 
+			  			<p class="text-right text-info"><big>{{lat}}, {{lon}}<big></p>
+			  			<h4>and here is the prediction:</h4> 
+			  			<p class="text-right text-info">{{prediction}} rides per day</p>
+					</div>
+
+					<br><br>
+
+			  		<div class="table-responsive">
+					  <table class="table">
+					  	<tr>
+						    <th>Quick stats:</th>
+						    <th></th>
+						</tr>
+						<tr>
+						    <td>90% percentile</td>
+						    <td>100</td>
+						</tr>
+						<tr>
+						    <td>75% percentile</td>
+						    <td>58</td>
+						</tr>
+						<tr>
+						    <td>50% percentile</td>
+						    <td>17</td>
+						</tr>
+						<tr>
+						    <td>mean</td>
+						    <td>38</td>
+						</tr>
+					  </table>
+					</div>
+
+			  		<button class="btn btn-default" onclick="goBack()">Go Back</button>
+					<script>
+					function goBack() {
+			    						window.history.back();
+										}
+					</script>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

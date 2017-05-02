@@ -27,17 +27,18 @@ from sklearn.externals import joblib
 
 ############### transformer class for random forest regression estimator pipeline
 
-metro_loc_flat = pickle.load(open('static/metro_loc_flat.p', 'r'))
-census_dict = pickle.load(open('static/census_dict.p', 'r'))
+metro_loc = pickle.load(open('static/metro_loc_flat.p', 'r'))
+census_dict = pickle.load(open('static/census_data.p', 'r'))
 bike_loc = pickle.load(open("static/bike_location.p", "rb"))
 
 
 class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
     
-    def __init__(self, metro_loc_flat = metro_loc_flat, census = census_dict, bike_loc = bike_loc):
+    def __init__(self, metro_loc_flat = metro_loc, census = census_dict, bike_loc = bike_loc):
         self.metro_loc_flat = metro_loc_flat
         self.bike_loc = bike_loc
         self.census = census
+        self.census_props = census_props
         
     def n_closest_metro_distance(self, x, n):
         """this will return the distance to the n closest metro stations"""
@@ -54,15 +55,25 @@ class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
             if temp > 0:
                 heapq.heappush(h, temp)
         return sorted(heapq.nsmallest(n, h))[:n]
+    
+    def bike_density(self, x, radius):
+        """Determine the number of bike stands within the given radius of the given point(x)"""
+        density = 0
+        for v in self.bike_loc.values():
+            if vincenty((x[0], x[1]), v).miles <= radius:
+                density += 1
+        return density
 
-    def closest_census_tract(self, lat, lon, prop = ['pop_dens', 'hu_dens']): 
+    def closest_census_tract(self, lat, lon, prop = ['pop_dens', 'h_dens']): 
         """this will return the prop value for the closest census tract
         this function will need to be updated to make it more general for property names"""
         h = []
         for k,v in self.census.items():
-            dist = vincenty((lat, lon),(v['INTPTLAT'], v['INTPTLONG'])).miles
-            heapq.heappush(h, (dist, v[prop[0]], v[prop[1]], k))
-        return [heapq.nsmallest(1,h)[0][1], heapq.nsmallest(1,h)[0][2]]
+            temp_props = [v[ii] for ii in self.census_props]
+            dist = vincenty((lat, lon),(v['lat'], v['lon'])).miles
+            heapq.heappush(h, (dist, temp_props))
+        return heapq.nsmallest(1,h)[0][1]
+        #return [heapq.nsmallest(1,h)[0][1], heapq.nsmallest(1,h)[0][2]]
         
     def fit(self, X, y=None):
         return self
@@ -74,9 +85,10 @@ class LatLongTransformer(base.BaseEstimator, base.TransformerMixin):
         
         for ii in X:
             features = []
-            features.extend(self.n_closest_metro_distance(ii, 2)) # n nearest metro stations
-            features.extend(self.n_closest_bike_distance(ii, 8)) # n nearest bike stands
-            features.extend(self.closest_census_tract(ii[0], ii[1])) # population and housing density
+            features.extend(self.n_closest_metro_distance(ii, 2)) # metro 2 (list)
+            features.append(self.bike_density(x = ii, radius = 0.75)) # number of bike stands within radius (int)
+            features.extend(self.n_closest_bike_distance(ii, 10)) # n nearest bike stands (list)
+            features.extend(self.closest_census_tract(ii[0], ii[1])) # features from closest census tract (list)
             features_all.append(features)
         
         return features_all
@@ -121,7 +133,7 @@ def histogram_figure():
 ##########################
 
 #randomforestpipe = joblib.load( 'static/rfr_pipe_new.joblib.pkl' )
-randomforestpipe =  pickle.load(open("static/rfr_pipe.p", "r"))
+randomforestpipe =  pickle.load(open("static/RandomForestPipe_20170430.p", "r"))
 
 ##########################
 
@@ -132,10 +144,19 @@ def main():
 
 @app.route('/index')
 def index():
+  #script1, div1 = histogram_figure_all()
+  #script2, div2 = histogram_figure()
+  #return render_template('index_cover.html', plot_script1=script1, plot_div1=div1, 
+  #						plot_script2=script2, plot_div2=div2)
+  return render_template('index_cover.html')
+
+@app.route('/info')
+def info():
   script1, div1 = histogram_figure_all()
   script2, div2 = histogram_figure()
-  return render_template('index_cover.html', plot_script1=script1, plot_div1=div1, 
+  return render_template('jumbotron.html', plot_script1=script1, plot_div1=div1, 
   						plot_script2=script2, plot_div2=div2)
+  #return render_template('jumbotron.html')
 
 @app.route('/predict_prompt')
 def predict_prompt():

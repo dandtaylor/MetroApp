@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Information about my model predicting Capital Bikeshare demand for hypothetical new stations in DC">
+    <meta name="author" content="Daniel D Taylor">
+    <link rel="icon" href="../static/favicon.ico">
+
+    <title>Predicting Bikeshare Demand</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../static/docs/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../static/docs/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link
+        href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.css"
+        rel="stylesheet" type="text/css">
+    <link
+        href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.4.min.css"
+        rel="stylesheet" type="text/css">
+
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.4.min.js"></script>
+
+    {{plot_script1|safe}}
+    {{plot_script2|safe}}
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('index') }}">Metro Share</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <!--<form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>-->
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>How does it work?</h1>
+        <p>This model uses information about current bikeshare stations -- their location, popularity, census demographics -- to predict the popularity of new stations.</p>
+        <p><a class="btn btn-primary btn-lg" href="{{ url_for('predict_prompt') }}" role="button">Give it a try! &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md">
+          <h2>Feature Engineering</h2>
+        </div>
+        <div class="col-md-4">
+          <h2>DC Metro</h2>
+          <p>My analysis shows that many Capital Bikeshare riders use the system together with the DC metro. Because of this, the distance to the two closest metro stations is determined for each location and used as features in the model. The locational data for the DC metro was taken from the WMATA API.</p>
+          <p><a class="btn btn-default" href="https://developer.wmata.com/" role="button">View data source &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>US Census</h2>
+          <p>From the most recent American Community Survey, population, housing, income, employment, and other demographic data  is determined for each location and used as features in the model.</p>
+          <p><a class="btn btn-default" href="https://www.census.gov/geo/maps-data/data/gazetteer2010.html" role="button">View data source &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Bikeshare Stations</h2>
+          <p>Over 3 million rides from the last year, along with geolocational data, were used to determine the ridership for each of the over 450 active stations. Features engineered from this data set include, bikeshare station density and the individual distances to each of the closest 10 bikeshare stands.</p>
+          <p><a class="btn btn-default" href="https://www.capitalbikeshare.com/system-data" role="button">View data source &raquo;</a></p>
+        </div>
+      </div>
+      <div class = "row">
+        <div class="col-md">
+        <br><br>
+        <h2>My Pipeline</h2>
+        <p> From the input address, the pipeline creates the feature set using existing bikeshare information, the location of metro stations, and data from the 2016 American Community Survey. These features are then fed into a random forest regression estimator to determine the predicted demand at that location.</p>
+        <center><img src="../static/images/ml_pipeline.svg"  width=90% /></center>
+        </div>
+      </div>
+      <div class = "row">
+        <div class="col-md">
+        <h2>Feature Importance</h2>
+            <script
+              src="../static/feature_importance_4.js"
+              id="d67a3eea-ca4e-4ba9-be3d-470be9a99f1e"
+              data-bokeh-model-id="8f261e69-cdb4-4623-9ad8-87e9e9c4bafa"
+              data-bokeh-doc-id="c54c6281-0e0e-40c4-b14b-65eec9c150c7"
+            ></script>
+        </div>
+      </div>
+      <div class = "row">
+        <div class="col-md">
+        <br><br>
+        <h2>Analysis of the Data</h2>
+        </div>
+      </div>
+      <div class = "row">
+        <div class="col-md">
+          <h3>Ride distance for all weekday rides.</h3>
+          <p>The below plot shows the distribution of ride distances with no consideration for time of day. The proximity of each ride to metro stations was also not considered.</p>
+          <!---<p> <img src="../static/images/ride distance all times.png"  width=75% /> </p>-->
+            <div class='bokeh'>
+              <center>{{plot_div1|safe}}</center>
+            </div>
+        </div>
+      </div>
+
+      <div class = "row">
+        <div class="col-md">
+          <h3>Ride distance for rides ending near and far from metro stations during the morning rush.</h3>
+          <p>The below plot shows the distribution of ride distances during the morning rush. The green bars show the portion of trips which ended at bikeshare stands within 0.15 miles of a DC metro station. The red bars show the portion of rides which terminated at DC metro stations further than 0.15 miles from any metro station.</p>
+          <!--<p> <img src="../static/images/ride distance morning rush.png"  width=75% /> </p>-->
+            <div class='bokeh'>
+              <center>{{plot_div2|safe}}</center>
+            </div>
+        </div>
+      </div>
+
+      <div class = "row">
+        <div class="col-md">
+        <center>
+          <h3>Most popular metro stations during morning rush</h3>
+          <!---<a href = "{{ url_for('morning_map') }}" > <img src="../static/images/morning_10_map_image.png"  width=50% /> </a>-->
+          
+          <p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('morning_map') }}" frameborder="0"></iframe></p>
+          <p> The above map indicates the locations of metro stations (green flags), the most popular morning rush hour starting stations (red flags), and the most popular morning rush hour ending stations (blue flags). Clicking on the image will load an interactive map.</p>
+        </center>
+        </div>
+      </div>
+
+      <div class = "row">
+        <div class="col-md">
+        <center>
+          <h3>Heatmap of 100 most popular destinations during morning rush</h3>
+          <!---<a href = "{{ url_for('morning_map') }}" > <img src="../static/images/morning_10_map_image.png"  width=50% /> </a>-->
+          <p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('heatmap') }}" frameborder="0"></iframe></p>
+          <p> The above map indicates the denisty of rides based on their end station.</p>
+        </center>
+        </div>
+      </div>
+
+      <div class = "row">
+        <div class="col-md">
+        <center>
+          <h3>Most popular metro stations during evening rush</h3>
+          <a href = "{{ url_for('evening_map') }}" > <img src="../static/images/evening_10_map_image.png"  width=50% /> </a>
+          <!--<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('evening_map') }}" frameborder="0"></iframe></p>-->
+          <p> The above map indicates the locations of metro stations (green flags), the most popular evening rush hour starting stations (red flags), and the most popular evening rush hour ending stations (blue flags). Clicking on the image will load an interactive map.</p>
+        </center>
+        </div>
+      </div>
+
+      <div class = "row">
+        <div class="col-md">
+        <center>
+          <h3>What stations are considered close?</h3>
+
+          <a href = "{{ url_for('near_map') }}" > <img src="../static/images/all_stations_map_image.PNG"  width=50% /> </a>
+          <!--<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('near_map') }}" frameborder="0"></iframe></p>-->
+          <p> This map shows metro stations (red) and those bikeshare stations which were considered near to a metro station (within 0.15 miles). Clicking on the image will load an interactive map that you can explore!</p>
+        </center>
+        </div>
+      </div>
+
+      <div class = "row">
+        <div class="col-md">
+        <center>
+          <h3>Complete map</h3>
+          <a href = "{{ url_for('all_map') }}" > <img src="../static/images/all_stations_map_image.PNG"  width=50% /> </a>
+          <!--<p><iframe frameborder='0' noresize='noresize'  style= 'position: static; background: transparent; width: 600px; height:600px;' src="{{ url_for('all_map') }}" frameborder="0"></iframe></p>-->
+          <p> This map shows all stations, both metro and bikeshare that were used in this analysis. Green flags indicate metro stations, red flags indicate bikeshare stations considered near metro stations, and blue flags indicate bikeshare stations considered far from metro stations. For this analysis 0.15 miles was used as the cutoff between near and far. Clicking on the image will load an interactive map that you can explore!</p>
+        </center>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; 2017 Danimal, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/docs/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../static/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../static/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

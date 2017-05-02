@@ -2,32 +2,52 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Mini Stock Prices</title>
+		<title>Predicting Bikeshare Demand</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="icon" href="../static/favicon.ico">
 	</head>
 	<body>
 		<div>
+      <center>
 
   			<h1>BikeShare Predicting</h1>
-  			<h4> Enter an address </h4>
-     
+  			<h4> Enter an address to get the predicted demand</h4>
+      </center>
 
-    <form id='ticker_info' method='post' action='predict_result' >
-      <p>
-    Enter an address: <input type='text' name='address' size="70" />
-      </p>
-      <p>
-          Select the format of you entry: <br />
-          <input type='radio' name='input_format' value='LatLong' /> Latitude/Longitude (e.g. 38.89696, -77.00493) <br />
-          <input type='radio' name='input_format' value='Address' /> Address (e.g. 1601 Connecticut Ave NW, Washington, DC 20009) <br />
-        </p>
-      <p>
-      <!---Sorry, this isn't ready for heroku!-->
-    <input type='submit' value='Predict!' />
-      </p>
-    </form>
+      <div class="container">
+        
+        <div class="row">
+
+          <div class="col-md-6 col-md-offset-3">
+            
+
+              <form id='ticker_info' method='post' action='predict_result' >
+                <p>
+                <br><br>
+              Enter an address: <input class="form-control" type='text' name='address' size="70" />
+                </p>
+                <p>
+                    <!--
+                    <label class="sr-only" for="inputHelpBlock">Input with help text</label>
+                    <input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock" size="70" >
+                      
+                    <span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+                    -->
+                    Select the format of you entry: <br />
+                    <input type='radio' name='input_format' value='LatLong' /> Latitude/Longitude (e.g. 38.89696, -77.00493) <br />
+                    <input type='radio' name='input_format' value='Address' /> Address (e.g. 1601 Connecticut Ave NW, Washington, DC 20009) <br />
+                  </p>
+                <p>
+              <!---Sorry, this isn't ready for heroku!-->
+              <input class="btn btn-primary btn-lg btn-block" type="submit" value="Predict!">
+              <!--<input type='submit' value='Predict!' />-->
+                </p>
+              </form>
+          </div>
+        </div>
+      </div>
 		</div>
 	</body>
 </html>
